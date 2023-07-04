@@ -51,7 +51,7 @@ public class AdicionarTarefaController {
     void acaoVoltar(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/principal_agenda/exibir_tarefas.fxml"));
-            Scene scene = new Scene(root, 400, 600);
+            Scene scene = new Scene(root, 450, 600);
             Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
             stage.hide();
 
