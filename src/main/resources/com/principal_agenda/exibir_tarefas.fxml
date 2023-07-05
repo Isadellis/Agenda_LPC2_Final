@@ -8,43 +8,63 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootAnchorPane" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.JanelaTarefasController">
+<AnchorPane fx:id="rootAnchorPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controllers.JanelaPrincipalController">
    <children>
-      <Pane prefHeight="600.0" prefWidth="450.0">
+      <Pane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: f7f8fc;">
          <children>
-            <Label layoutX="178.0" layoutY="55.0" text="TAREFAS" textFill="#27072e">
+            <Label layoutX="209.0" layoutY="14.0" text="TAREFAS" textFill="#4a5181">
                <font>
-                  <Font name="Arial Bold" size="20.0" />
+                  <Font name="Segoe UI" size="50.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="43.0" layoutY="86.0" prefHeight="400.0" prefWidth="365.0">
+            <ScrollPane fx:id="scrollPane" layoutX="50.0" layoutY="117.0" prefHeight="300.0" prefWidth="500.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="365.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="500.0">
                      <children>
-                        <VBox prefHeight="400.0" prefWidth="365.0" style="-fx-background-color: EFE9FF; -fx-border-color: B0A4D8;" />
+                        <VBox fx:id="tarefasVBox" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: EFE9FF; -fx-border-color: B0A4D8; -fx-border-radius: 2; -fx-background-radius: 2;" />
                      </children>
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Button fx:id="botaoNovaTarefa" layoutX="33.0" layoutY="529.0" mnemonicParsing="false" onAction="#acaoNovaTarefa" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Nova Tarefa">
+            <Button fx:id="botaoEditarTarefa" layoutX="227.0" layoutY="438.0" mnemonicParsing="false" onAction="#acaoEditarTarefa" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Editar">
                <font>
-                  <Font name="Arial" size="14.0" />
+                  <Font name="Segoe UI" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="botaoSair" layoutX="339.0" layoutY="529.0" mnemonicParsing="false" onAction="#acaoSair" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Sair">
+            <Button fx:id="botaoSair" layoutX="401.0" layoutY="438.0" mnemonicParsing="false" onAction="#acaoSair" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Sair">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Segoe UI" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="botaoEditarTarefas" layoutX="138.0" layoutY="529.0" mnemonicParsing="false" onAction="#acaoEditarTarefa" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Editar Tarefas">
+            <Button fx:id="botaoAtualizar" layoutX="314.0" layoutY="438.0" mnemonicParsing="false" onAction="#acaoAtualizar" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Atualizar">
                <font>
-                  <Font size="14.0" />
-               </font></Button>
-            <Button fx:id="botaoAtualizar" layoutX="253.0" layoutY="529.0" mnemonicParsing="false" onAction="#acaoAtualizar" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Atualizar">
-               <font>
-                  <Font size="14.0" />
+                  <Font name="Segoe UI" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="botaoNovaTarefa" layoutX="120.0" layoutY="438.0" mnemonicParsing="false" onAction="#acaoNovaTarefa" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: EDEBFF; -fx-border-color: B0A4D8; -fx-border-radius: 3;" text="Nova Tarefa">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Button>
+            <Pane layoutX="50.0" layoutY="75.0" prefHeight="42.0" prefWidth="500.0" style="-fx-background-color: b0b8f7; -fx-background-radius: 2; -fx-border-radius: 2;">
+               <children>
+                  <Label layoutX="8.0" layoutY="17.0" text="ID">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="68.0" layoutY="17.0" text="STATUS">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="168.0" layoutY="17.0" text="DESCRIÇÃO">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

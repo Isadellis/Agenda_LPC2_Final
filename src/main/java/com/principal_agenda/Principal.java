@@ -12,7 +12,7 @@ public class Principal extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("exibir_tarefas.fxml"));
-        Scene scene = new Scene(root, 400, 600);
+        Scene scene = new Scene(root, 600, 500);
 
         stage.setTitle("Tarefas");
         stage.setScene(scene);

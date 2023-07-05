@@ -1,74 +1,101 @@
 package com.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import com.agenda.ControlaFluxoAgenda;
+import com.fluxo_agenda.OperacoesAgenda;
+import com.excecao.DuplicidadeException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class AdicionarTarefaController {
     @FXML
-    private Button botaoSalvar;
+    private Button botaoAdicionar;
 
     @FXML
     private Button botaoVoltar;
 
     @FXML
-    private TextField descricaoTextField;
+    private TextArea descricaoTextArea;
 
     @FXML
-    private TextField tituloTextField;
+    private ComboBox<String> statusComboBox;
 
-    private ControlaFluxoAgenda controlaFluxoAgenda;
+    private OperacoesAgenda operacoesAgenda;
 
     @FXML
-    void acaoSalvar(ActionEvent event) {
-        if(controlaFluxoAgenda.adicionarTarefa(descricaoTextField.getText(), tituloTextField.getText(), false)) {
+    void initialize() {
+        operacoesAgenda = new OperacoesAgenda();
+
+        statusComboBox.getItems().add("Em andamento");
+        statusComboBox.getItems().add("Concluída");
+
+        statusComboBox.getSelectionModel().selectFirst();
+    }
+
+    @FXML
+    void acaoAdicionar(ActionEvent event) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        if (stage.getUserData() != null)
+            operacoesAgenda = (OperacoesAgenda) stage.getUserData(); //atualiza o operacoesAgenda se houver algo no userData
+
+        //Tenta adicionar a nova tarefa
+        try {
+            operacoesAgenda.adicionarTarefa(descricaoTextArea.getText(), statusComboBox.getSelectionModel().getSelectedItem().toString());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Tarefa adicionada com sucesso");
             alert.setTitle("Adicionar tarefa");
             alert.show();
-        } else {
+
+        } catch (DuplicidadeException e) { //Tarefas com a mesma descrição não serão aceitas
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Não foi possível criar a tarefa");
+            alert.setHeaderText("Não foi possível criar a tarefa.");
+            alert.setContentText("Tarefa duplicada");
             alert.setTitle("Adicionar tarefa");
             alert.show();
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Não foi possível criar a tarefa.");
+            alert.setTitle("Adicionar tarefa");
+            alert.show();
+
+        }finally {
+            resetaCampos();
         }
     }
 
     @FXML
     void acaoVoltar(ActionEvent event) {
         try {
+            //Altera a cena para a tela de edição de tarefas
             Parent root = FXMLLoader.load(getClass().getResource("/com/principal_agenda/exibir_tarefas.fxml"));
-            Scene scene = new Scene(root, 400, 600);
+            Scene scene = new Scene(root, 600, 500);
+
+            //Esconde o palco atual
             Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
             stage.hide();
 
-            stage.setUserData(controlaFluxoAgenda);
+            //atualiza o operacoesAgenda
+            stage.setUserData(operacoesAgenda);
 
-            stage.setTitle("Adicionar tarefa");
+            stage.setTitle("Edição tarefas");
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.show();
+            stage.show(); //Exibe o novo palco
 
         } catch (IOException e) {
             System.out.println("Erro ao abrir a aba");
         }
     }
 
-    @FXML
-    void initialize() {
-        controlaFluxoAgenda = new ControlaFluxoAgenda();
+    private void resetaCampos () {
+        statusComboBox.getSelectionModel().selectFirst();
+        descricaoTextArea.setText("");
     }
 }

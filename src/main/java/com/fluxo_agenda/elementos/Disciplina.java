@@ -1,4 +1,4 @@
-package com.agenda.elementos;
+package com.fluxo_agenda.elementos;
 
 public class Disciplina {
     /*
